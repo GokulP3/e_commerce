@@ -79,8 +79,14 @@ class ProductProvider extends ChangeNotifier {
 
   // ********************** add product to checkout ***************************
 
-  void addProductToCheckOut(bool iscart) {
+  void addProductToCheckOut(bool iscart, {int id = 0}) {
     isCart = iscart;
+    if (id > 0) {
+      checkout.clear();
+      int index = productData.indexWhere((element) => element.id == id);
+      checkout.add(productData[index]);
+      notifyListeners();
+    }
     notifyListeners();
   }
 

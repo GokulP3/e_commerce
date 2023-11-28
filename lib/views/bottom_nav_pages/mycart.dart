@@ -264,7 +264,18 @@ class _MyCartState extends State<MyCart> {
   }
 
   Widget _buyNow(index) {
-    return TextButton(onPressed: () {}, child: const Text("Buy Now"));
+    return TextButton(
+        onPressed: () {
+          Provider.of<ProductProvider>(context, listen: false)
+              .addProductToCheckOut(
+                  false,
+                  id: Provider.of<ProductProvider>(context, listen: false)
+                      .cartData[index]
+                      .id);
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const ProductCheckOut()));
+        },
+        child: const Text("Buy Now"));
   }
 
   Widget _removeItem(index) {

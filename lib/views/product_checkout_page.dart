@@ -45,7 +45,7 @@ class _ProductCheckOutState extends State<ProductCheckOut> {
     );
   }
 
-  List<PriceItem> _product({int id = 0}) {
+  List<PriceItem> _product() {
     final provider = Provider.of<ProductProvider>(context);
     if (provider.isCart) {
       List<PriceItem> data = provider.cartData

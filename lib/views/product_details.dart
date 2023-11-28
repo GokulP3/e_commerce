@@ -165,7 +165,7 @@ class ProductDetails extends StatelessWidget {
               side: const BorderSide(color: Colors.grey)),
           onPressed: () {
             Provider.of<ProductProvider>(context, listen: false)
-                .addProductToCheckOut(false);
+                .addProductToCheckOut(false, id: data.id);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const ProductCheckOut()));
           },

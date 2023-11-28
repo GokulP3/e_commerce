@@ -64,8 +64,10 @@ class ProductProvider extends ChangeNotifier {
   // ************************ product cart increment ******************
 
   void addQuantity(index) {
-    cartData[index].quantity = ++cartData[index].quantity;
-    notifyListeners();
+    if (cartData[index].quantity < 10) {
+      cartData[index].quantity = ++cartData[index].quantity;
+      notifyListeners();
+    }
   }
 
   // ************************ product cart increment ******************

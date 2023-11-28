@@ -128,6 +128,7 @@ class ProductDetails extends StatelessWidget {
   Widget _cartButton(BuildContext context, width) {
     return SizedBox(
       width: width * 0.48,
+      height: 50,
       child: FloatingActionButton(
           heroTag: "cartBtn",
           elevation: 3,
@@ -156,6 +157,7 @@ class ProductDetails extends StatelessWidget {
   Widget _buyNow(BuildContext context, width) {
     return SizedBox(
       width: width * 0.48,
+      height: 50,
       child: FloatingActionButton(
           heroTag: "buyNowBtn",
           elevation: 3,

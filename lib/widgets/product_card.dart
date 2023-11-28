@@ -1,4 +1,5 @@
 import 'package:e_commerce/provider/product_provider.dart';
+import 'package:e_commerce/utils/responsive.dart';
 import 'package:e_commerce/views/product_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class ProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _productImage(),
+              _productImage(context),
               _productName(),
               _rating(),
               _productPrice(context),
@@ -34,14 +35,19 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget _productImage() {
+  Widget _productImage(BuildContext context) {
+    final width = Responsive(context).width;
+    final height = Responsive(context).height;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: 120,
-          height: 120,
-          child: Image.network(data.productImages[0]),
+          width: width * 0.2,
+          height: height * 0.15,
+          child: Image.network(
+            data.productImages[0],
+            fit: BoxFit.contain,
+          ),
         ),
       ],
     );

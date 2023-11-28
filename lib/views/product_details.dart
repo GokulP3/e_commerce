@@ -53,14 +53,15 @@ class ProductDetails extends StatelessWidget {
 
   Widget _productImages(List images, BuildContext context) {
     final height = Responsive(context).height;
+    final width = Responsive(context).width;
     return CarouselSlider(
       carouselController: _controller,
       items: images
           .map((image) => Column(
                 children: [
                   SizedBox(
-                    height: 250,
-                    width: 250,
+                    height: height * 0.35,
+                    width: width * 0.5,
                     child: Image.network(
                       image,
                       fit: BoxFit.fill,
@@ -182,13 +183,15 @@ class ProductDetails extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          Text(
-            "${data.brand}-${data.title}",
-            style: const TextStyle(
-                overflow: TextOverflow.ellipsis,
-                fontSize: 24,
-                letterSpacing: 1,
-                fontWeight: FontWeight.w600),
+          Flexible(
+            child: Text(
+              "${data.brand}-${data.title}",
+              style: const TextStyle(
+                  overflow: TextOverflow.fade,
+                  fontSize: 24,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),

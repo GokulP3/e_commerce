@@ -1,4 +1,5 @@
 import 'package:e_commerce/provider/product_provider.dart';
+import 'package:e_commerce/widgets/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:checkout_screen_ui/checkout_page.dart';
 import 'dart:io';
@@ -20,7 +21,9 @@ class _ProductCheckOutState extends State<ProductCheckOut> {
 
   Widget _scaffold() {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: const MyBackButton(),
+      ),
       body: _body(),
     );
   }
@@ -61,16 +64,9 @@ class _ProductCheckOutState extends State<ProductCheckOut> {
 
   final demoOnlyStuff = DemoOnlyStuff();
   Future<void> _creditPayClicked(CardFormResults results) async {
-    // you can update the pay button to show somthing is happening
     _payBtnKey.currentState?.updateStatus(CardPayButtonStatus.processing);
-
-    // This is where you would implement you Third party credit card
-    // processing api
     demoOnlyStuff.callTransactionApi(_payBtnKey);
-
-    // ignore: avoid_print
     print(results);
-    // WARNING: you should NOT print the above out using live code
   }
 
   static const String _payToName = 'Product(s)';
@@ -83,7 +79,6 @@ class _ProductCheckOutState extends State<ProductCheckOut> {
   }
 
   static const _footer = CheckoutPageFooter(
-    // These are example url links only. Use your own links in live code
     privacyLink: 'https://stripe.com/privacy',
     termsLink: 'https://stripe.com/payment-terms/legal',
     note: 'Powered By Not_Stripe',

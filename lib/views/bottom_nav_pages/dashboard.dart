@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
       automaticallyImplyLeading: false,
       centerTitle: false,
       flexibleSpace: FlexibleSpaceBar(
-          centerTitle: true,
+          centerTitle: false,
           background: Image.asset(
             "assets/images/banner-1.png",
             fit: BoxFit.fill,

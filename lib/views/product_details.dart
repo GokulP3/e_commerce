@@ -39,6 +39,7 @@ class ProductDetails extends StatelessWidget {
           child: Column(
             children: [
               _productImages(data.productImages, context),
+              _dotIndicator(data.productImages, context),
               _productTitle(),
               _productDescription(),
               _priceAndDiscount(),
@@ -64,34 +65,20 @@ class ProductDetails extends StatelessWidget {
                     width: width * 0.5,
                     child: Image.network(
                       image,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
                       fit: BoxFit.fill,
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: images.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Container(
-                          width: 12.0,
-                          height: 12.0,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      Provider.of<ProductProvider>(context)
-                                                  .currentImage ==
-                                              entry.key
-                                          ? 0.9
-                                          : 0.4)),
-                        ),
-                      );
-                    }).toList(),
                   ),
                 ],
               ))
@@ -104,6 +91,32 @@ class ProductDetails extends StatelessWidget {
             Provider.of<ProductProvider>(context, listen: false)
                 .setProductImageIndex(index);
           }),
+    );
+  }
+
+  Widget _dotIndicator(List images, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: images.asMap().entries.map((entry) {
+        return GestureDetector(
+          onTap: () => _controller.animateToPage(entry.key),
+          child: Container(
+            width: 12.0,
+            height: 12.0,
+            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: (Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black)
+                    .withOpacity(
+                        Provider.of<ProductProvider>(context).currentImage ==
+                                entry.key
+                            ? 0.9
+                            : 0.4)),
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -297,7 +310,7 @@ class ProductDetails extends StatelessWidget {
     );
   }
 
-  _cashOnDelivery() {
+  Widget _cashOnDelivery() {
     return const Column(
       children: [
         Icon(
@@ -310,7 +323,7 @@ class ProductDetails extends StatelessWidget {
     );
   }
 
-  _assuredProduct() {
+  Widget _assuredProduct() {
     return const Column(
       children: [
         Icon(

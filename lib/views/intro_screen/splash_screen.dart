@@ -73,8 +73,8 @@ class _SplashScreenState extends State<SplashScreen> {
       barrierDismissible: false,
       context: context,
       builder: (context) => Center(
-        child: WillPopScope(
-          onWillPop: () => Future.value(false),
+        child: PopScope(
+          canPop: false,
           child: Container(
               width: 300,
               height: 220,
